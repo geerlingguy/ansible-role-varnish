@@ -1,0 +1,29 @@
+---
+- name: Install Varnish repository.
+  command: >
+    rpm --nosignature -i http://repo.varnish-cache.org/redhat/varnish-3.0/el6/noarch/varnish-release/varnish-release-3.0-1.el6.noarch.rpm
+    creates=/var/lib/yum/repos/x86_64/6/varnish-3.0
+
+- name: Install Varnish.
+  yum: name=varnish state=installed
+
+- name: Copy custom Varnish sysconfig.
+  template: src=varnish.j2 dest=/etc/sysconfig/varnish owner=root group=root mode=0644
+
+- name: Copy Varnish default VCL.
+  template: >
+    src=default.vcl.j2
+    dest={{ varnish_config_path }}/default.vcl
+    owner=root group=root mode=644
+  when: varnish_use_default_vcl
+  notify: restart varnish
+
+- name: Copy varnish secret.
+  template: >
+    src=secret.j2
+    dest={{ varnish_config_path }}/secret
+    owner=root group=root mode=644
+  notify: restart varnish
+
+- name: Ensure Varnish is started and set to run on startup.
+  service: name=varnish state=started enabled=yes
