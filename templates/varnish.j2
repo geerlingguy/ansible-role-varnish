@@ -24,6 +24,10 @@ NPROCS="unlimited"
 # use Alternative 3, Advanced configuration, below
 RELOAD_VCL=1
 
+# The default Varnish init script requires START set to true in order to actually boot.
+# If not it'll just say 'Not starting...' and exit.
+START=1
+
 # This file contains 4 alternatives, please use only one.
 
 ## Alternative 1, Minimal configuration, no VCL
