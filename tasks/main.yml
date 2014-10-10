@@ -1,35 +1,14 @@
 ---
-- name: Add Varnish repository.
-  command: >
-    rpm --nosignature -i http://repo.varnish-cache.org/redhat/varnish-3.0/el6/noarch/varnish-release/varnish-release-3.0-1.el6.noarch.rpm
-    creates=/var/lib/yum/repos/x86_64/6/varnish-3.0
+- include: setup-RedHat.yml
   when: ansible_os_family == 'RedHat'
 
-- name: Install Varnish.
-  yum: name=varnish state=installed
-  when: ansible_os_family == 'RedHat'
+- include: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
 
-- name: Add Varnish apt key.
-  apt_key: url=http://repo.varnish-cache.org/debian/GPG-key.txt state=present
-  when: ansible_os_family == 'Ubuntu'
-
-- name: Add Varnish apt repository.
-  apt_repository: 
-    repo: deb http://repo.varnish-cache.org/ubuntu {{ ansible_distribution_release }} varnish-3.0
-    state: present
-  when: ansible_os_family == 'Ubuntu'
-
-- name: Install Varnish.
-  apt: name=varnish state=installed
-  when: ansible_os_family == 'Ubuntu'
-
-- name: Copy custom Varnish sysconfig.
-  template: src=varnish.j2 dest=/etc/sysconfig/varnish owner=root group=root mode=0644
-  when: ansible_os_family == 'RedHat'
-
-- name: Copy Varnish defaults
-  template: src=varnish.j2 dest=/etc/default/varnish owner=root group=root mode=0755
-  when: ansible_os_family == 'Ubuntu'
+- name: Ensure Varnish config path exists.
+  file: >
+    path={{ varnish_config_path }}
+    state=directory
 
 - name: Copy Varnish default VCL.
   template: >

@@ -15,5 +15,8 @@ galaxy_info:
     versions:
     - precise
     - trusty
+  - name: Debian
+    versions:
+    - all
   categories:
     - web

@@ -1,0 +1,14 @@
+---
+- name: Add Varnish apt key.
+  apt_key: url=http://repo.varnish-cache.org/debian/GPG-key.txt state=present
+
+- name: Add Varnish apt repository.
+  apt_repository:
+    repo: "deb http://repo.varnish-cache.org/ubuntu {{ ansible_distribution_release }} varnish-3.0"
+    state: present
+
+- name: Install Varnish.
+  apt: name=varnish state=installed
+
+- name: Copy Varnish configuration.
+  template: src=varnish.j2 dest=/etc/default/varnish owner=root group=root mode=0755
