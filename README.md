@@ -1,6 +1,8 @@
 # Ansible Role: Varnish
 
-An Ansible Role that installs Varnish on RHEL/CentOS 6.x.
+[![Build Status](https://travis-ci.org/geerlingguy/ansible-role-varnish.svg?branch=master)](https://travis-ci.org/geerlingguy/ansible-role-varnish)
+
+An Ansible Role that installs Varnish on RedHat/CentOS or Debian/Ubuntu Linux.
 
 ## Requirements
 
