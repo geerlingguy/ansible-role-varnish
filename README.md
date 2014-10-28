@@ -38,6 +38,10 @@ The secret/key to be used for connecting to Varnish's admin backend (for purge r
 
 The host and port through which Varnish will accept admin requests (like purge and status requests).
 
+    varnish_storage: "file,/var/lib/varnish/varnish_storage.bin,256M"
+
+How Varnish stores cache entries (this is passed in as the argument for `-s`). If you want to use in-memory storage, change to something like `malloc,256M`. Please read Varnish's [Getting Started guide](https://www.varnish-software.com/static/book/Getting_started.html) for more information.
+
 ## Dependencies
 
 None.
