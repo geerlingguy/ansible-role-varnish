@@ -4,6 +4,7 @@
     rpm --nosignature -i https://repo.varnish-cache.org/redhat/varnish-4.0.el6.rpm
     creates=/var/lib/yum/repos/x86_64/6/varnish-4.0
   ignore_errors: true
+  when: ansible_distribution_major_version|int < 7
 
 - name: Install Varnish.
   yum: name=varnish state=installed enablerepo=epel
