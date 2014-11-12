@@ -6,7 +6,7 @@ An Ansible Role that installs Varnish on RedHat/CentOS or Debian/Ubuntu Linux.
 
 ## Requirements
 
-None.
+Requires the EPEL repository on RedHat/CentOS (you can install it using the `geerlingguy.repo-epel` role).
 
 ## Role Variables
 
