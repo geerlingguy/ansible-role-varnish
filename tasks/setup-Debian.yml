@@ -1,6 +1,8 @@
 ---
 - name: Add Varnish apt key.
-  apt_key: url=http://repo.varnish-cache.org/debian/GPG-key.txt state=present
+  apt_key:
+    url: http://repo.varnish-cache.org/debian/GPG-key.txt
+    state: present
 
 - name: Add Varnish apt repository.
   apt_repository:
@@ -8,7 +10,9 @@
     state: present
 
 - name: Install Varnish.
-  apt: name=varnish state=installed
+  apt:
+    name: varnish
+    state: installed
 
 - name: Copy Varnish configuration.
   template:
