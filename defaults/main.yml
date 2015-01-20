@@ -1,7 +1,9 @@
 ---
+varnish_repo_url: "https://repo.varnish-cache.org/redhat/varnish-4.0/el6/$basearch"
 varnish_use_default_vcl: true
 varnish_default_backend_host: "127.0.0.1"
 varnish_default_backend_port: "8080"
+varnish_listen_address: "{{ ansible_eth0.ipv4.address }}"
 varnish_listen_port: "80"
 varnish_secret: "14bac2e6-1e34-4770-8078-974373b76c90"
 varnish_config_path: /etc/varnish

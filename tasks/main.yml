@@ -6,24 +6,31 @@
   when: ansible_os_family == 'Debian'
 
 - name: Ensure Varnish config path exists.
-  file: >
-    path={{ varnish_config_path }}
-    state=directory
+  file:
+    path: "{{ varnish_config_path }}"
+    state: directory
 
 - name: Copy Varnish default VCL.
-  template: >
-    src=default.vcl.j2
-    dest={{ varnish_config_path }}/default.vcl
-    owner=root group=root mode=644
+  template:
+    src: default.vcl.j2
+    dest: "{{ varnish_config_path }}/default.vcl"
+    owner: root
+    group: root
+    mode: 644
   when: varnish_use_default_vcl
   notify: restart varnish
 
 - name: Copy varnish secret.
-  template: >
-    src=secret.j2
-    dest={{ varnish_config_path }}/secret
-    owner=root group=root mode=644
+  template:
+    src: secret.j2
+    dest: "{{ varnish_config_path }}/secret"
+    owner: root
+    group: root
+    mode: 644
   notify: restart varnish
 
 - name: Ensure Varnish is started and set to run on startup.
-  service: name=varnish state=started enabled=yes
+  service:
+    name: varnish
+    state: started
+    enabled: yes
