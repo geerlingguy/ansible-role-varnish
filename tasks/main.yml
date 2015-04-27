@@ -1,9 +1,9 @@
 ---
 
 - name: install packages based on package group
-  yum: name="@{{ item }}" state=present
+  yum: name=@{{ item }} state=present
   with_items:
-    - Development tools
+    - "Development tools"
 
 - include: setup-RedHat.yml
   when: ansible_os_family == 'RedHat'
