@@ -1,4 +1,9 @@
 ---
+- name: install packages based on package group
+  yum: name=@{{ item }} state=present
+  with_items:
+    - "Development tools"
+
 - name: Add Varnish repository.
   command: >
     rpm --nosignature -i https://repo.varnish-cache.org/redhat/varnish-4.0.el6.rpm
