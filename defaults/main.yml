@@ -1,5 +1,6 @@
 ---
 varnish_use_default_vcl: true
+varnish_default_vcl_template_path: default.vcl.j2
 varnish_default_backend_host: "127.0.0.1"
 varnish_default_backend_port: "8080"
 varnish_listen_port: "80"

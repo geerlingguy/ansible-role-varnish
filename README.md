@@ -20,6 +20,10 @@ The path in which Varnish configuration files will be stored.
 
 Whether to use the included (simplistic) default Varnish VCL, using the backend host/port defined with the next two variables. Set this to `false` and copy your own `default.vcl` file into the `varnish_config_path` if you'd like to use a more complicated setup. If this variable is set to `true`, all other configuration will be taken from Varnish's own [default VCL](https://www.varnish-cache.org/trac/browser/bin/varnishd/default.vcl?rev=3.0).
 
+    varnish_default_vcl_template_path: default.vcl.j2
+
+The default VCL file to be copied (if `varnish_use_default_vcl` is `true`). Defaults the the simple template inside `templates/default.vcl.j2`. This path should be relative to the directory from which you run your playbook.
+
     varnish_default_backend_host: "127.0.0.1"
     varnish_default_backend_port: "8080"
 
