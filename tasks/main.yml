@@ -12,7 +12,7 @@
 
 - name: Copy Varnish default VCL.
   template:
-    src: default.vcl.j2
+    src: "{{ varnish_default_vcl_template_path }}"
     dest: "{{ varnish_config_path }}/default.vcl"
     owner: root
     group: root
