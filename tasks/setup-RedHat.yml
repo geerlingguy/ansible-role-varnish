@@ -1,5 +1,5 @@
 ---
-- name: Install gcc (Varnish dependency).
+- name: Ensure gcc is installed (Varnish dependency).
   yum: name=gcc state=present
 
 - name: Add Varnish repository.
