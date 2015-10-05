@@ -12,6 +12,10 @@ Requires the EPEL repository on RedHat/CentOS (you can install it using the `gee
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
+    varnish_version: 4.0
+
+Varnish version that should be installed.
+
     varnish_config_path: /etc/varnish
 
 The path in which Varnish configuration files will be stored.
