@@ -13,7 +13,7 @@
   yum:
     name: varnish
     state: installed
-    enablerepo: "varnish-4.0,epel"
+    enablerepo: "varnish-{{ varnish_version }},epel"
     disablerepo: "*"
 
 - name: Copy Varnish configuration (sysvinit).
