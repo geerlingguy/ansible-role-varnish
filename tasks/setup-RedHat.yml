@@ -9,11 +9,15 @@
   ignore_errors: true
   when: ansible_distribution_major_version|int < 7
 
+- name: Set repo fact appropriately.
+  set_fact:
+    varnish_yum_enablerepo: "{{ 'varnish-{{ varnish_version }},epel' if (ansible_distribution_major_version|int < 7) else 'epel' }}"
+
 - name: Install Varnish.
   yum:
     name: varnish
     state: installed
-    enablerepo: "varnish-{{ varnish_version }},epel"
+    enablerepo: "{{ varnish_yum_enablerepo }}"
     disablerepo: "*"
 
 - name: Copy Varnish configuration (sysvinit).
