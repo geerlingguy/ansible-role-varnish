@@ -1,4 +1,5 @@
 ---
+sudo: required
 language: python
 python: "2.7"
 
@@ -32,3 +33,6 @@ script:
 
   # Check the version of Varnish (if this output fails, it's not running).
   - varnishd -V
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
