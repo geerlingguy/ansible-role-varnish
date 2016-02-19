@@ -29,5 +29,11 @@
     mode: 0644
   notify: restart varnish
 
+- name: Create Varnish store dir
+  file:
+    path: "{{ varnish_store_dir }}"
+    state: directory
+  when: "{{ varnish_store_type }} == 'file'"
+
 - name: Ensure Varnish is started and set to run on startup.
   service: name=varnish state=started enabled=yes
