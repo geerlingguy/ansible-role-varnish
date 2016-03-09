@@ -60,7 +60,7 @@ None.
       vars_files:
         - vars/main.yml
       roles:
-        - role: geerlingguy.varnish
+        - geerlingguy.varnish
 
 *Inside `vars/main.yml`*:
 
