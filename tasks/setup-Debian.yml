@@ -11,11 +11,3 @@
 
 - name: Install Varnish.
   apt: name=varnish state=installed
-
-- name: Copy Varnish configuration.
-  template:
-    src: varnish.j2
-    dest: /etc/default/varnish
-    owner: root
-    group: root
-    mode: 0755
