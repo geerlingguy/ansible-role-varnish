@@ -14,7 +14,7 @@ Available variables are listed below, along with default values (see `defaults/m
 
     varnish_version: "4.0"
 
-Varnish version that should be installed. See `https://repo.varnish-cache.org/redhat/` for a listing of available versions (e.g. `3.0`, `4.0`, `4.1`).
+Varnish version that should be installed. See `https://repo.varnish-cache.org/redhat/` for a listing of available versions (e.g. `3.0`, `4.0`, `4.1`). _Note: Ubuntu 16.04 "Xenial"
 
     varnish_config_path: /etc/varnish
 
