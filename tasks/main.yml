@@ -27,7 +27,9 @@
     group: root
     mode: 0655
   when: ansible_os_family == 'Debian' and (ansible_distribution_release == "jessie" or ansible_distribution_release == "xenial")
-  notify: restart varnish
+  notify:
+    - restart varnish
+    - reload systemd
 
 - name: Copy Varnish configuration (systemd).
   template:
