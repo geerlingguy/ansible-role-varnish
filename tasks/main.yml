@@ -19,17 +19,19 @@
     (ansible_os_family == 'RedHat' and ansible_distribution_major_version|int < 7) or
     (ansible_os_family == 'Debian' and ansible_distribution_release != "xenial")
 
-- name: Copy Debian Jessie/Xenial specific Varnish configs (systemd)
+- name: Copy Debian Jessie/Xenial specific Varnish configs (systemd).
   template:
     src: varnish.service.j2
     dest: "{{ varnish_systemd_config_path }}/varnish.service"
     owner: root
     group: root
     mode: 0655
-  when: ansible_os_family == 'Debian' and (ansible_distribution_release == "jessie" or ansible_distribution_release == "xenial")
+  when: >
+    (ansible_os_family == 'Debian') and
+    (ansible_distribution_release == "jessie" or ansible_distribution_release == "xenial")
   notify:
-    - restart varnish
     - reload systemd
+    - restart varnish
 
 - name: Copy Varnish configuration (systemd).
   template:
