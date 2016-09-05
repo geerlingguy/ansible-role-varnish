@@ -1,0 +1,167 @@
+#!/usr/bin/python
+#coding: utf-8 -*-
+# (c) 2014, David Lundgren <dlundgren@syberisle.net>
+#
+# This file is part of Ansible
+#
+# This module is free software: you can redistribute it and/or modify
+# it under the terms of the MIT license.
+
+#  The MIT License (MIT)
+
+#  Copyright (c) 2014 David Lundgren
+
+#  Permission is hereby granted, free of charge, to any person obtaining a copy
+#  of this software and associated documentation files (the "Software"), to deal
+#  in the Software without restriction, including without limitation the rights
+#  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#  copies of the Software, and to permit persons to whom the Software is
+#  furnished to do so, subject to the following conditions:
+
+#  The above copyright notice and this permission notice shall be included in all
+#  copies or substantial portions of the Software.
+
+#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#  SOFTWARE.
+
+DOCUMENTATION = '''
+---
+module: sysrc
+short_description: Manage FreeBSD /etc/rc.conf
+requirements: []
+version_added: 1.7
+author: David Lundgren
+description:
+    - Manages the /etc/rc.conf for FreeBSD
+options:
+    name:
+        required: true
+        description:
+            - Name of variable in $dest to manage.
+            - NOTE: cannot use . (periods) in the name as sysrc doesn't support it
+    value:
+        required: false
+        description:
+            - The value if "present"
+    state:
+        required: false
+        default: "present"
+        choices: [ present, absent ]
+        description:
+            - Whether the var should be present or absent in $dest.
+    dest:
+        required: false
+        default: "/etc/rc.conf"
+        description:
+            - What file should be operated on
+'''
+
+EXAMPLES = '''
+---
+# enable mysql in the /etc/rc.conf
+- name: Configure mysql pid file
+  sysrc:
+    name: mysql_pidfile
+    value: "/var/run/mysqld/mysqld.pid"
+
+# enable accf_http kld in the boot loader
+- name: enable accf_http kld
+  sysrc:
+    name: accf_http_load
+    state: present
+    value: "YES"
+    dest: /boot/loader.conf
+'''
+
+import re
+from ansible.module_utils.basic import *
+
+class sysrc(object):
+    def __init__(self, module, name, value, dest):
+        self.module  = module
+        self.name    = name
+        self.changed = False
+        self.value   = value
+        self.dest    = dest
+        self.sysrc   = module.get_bin_path('sysrc', True)
+
+    def exists(self):
+        # sysrc doesn't really use exit codes
+        (rc, out, err) = self.module.run_command([self.sysrc, '-f', self.dest, self.name])
+        if out.find("unknown variable") == -1 and re.match("%s: %s$" % (re.escape(self.name), re.escape(self.value)), out) is not None:
+            return True
+        else:
+            return False
+
+    def create(self):
+        if self.module.check_mode:
+            self.changed = True
+            return
+
+        (rc, out, err) = self.module.run_command([self.sysrc, '-f', self.dest, "%s=%s" % (self.name, self.value)])
+        if out.find("%s:" % (self.name)) == 0 and re.search("\-\> %s$" % re.escape(self.value), out) is not None:
+            self.changed = True
+            return True
+        else:
+            return False
+
+    def destroy(self):
+        if self.module.check_mode:
+            self.changed = True
+            return
+
+        (rc, out, err) = self.module.run_command([self.sysrc, '-f', self.dest, '-x', self.name])
+        if out.find("unknown variable") == -1:
+            return False
+        else:
+            self.changed = True
+            return True
+
+def main():
+    module = AnsibleModule(
+        argument_spec = dict(
+            name  = dict(
+                required = True
+            ),
+            value = dict(
+                default = None
+            ),
+            state = dict(
+                default = 'present',
+                choices = [ 'present', 'absent' ]
+            ),
+            dest  = dict(
+                default = '/etc/rc.conf'
+            )
+        ),
+        supports_check_mode=True,
+    )
+
+    name   = module.params.pop('name')
+    value  = module.params.pop('value')
+    state  = module.params.pop('state')
+    dest   = module.params.pop('dest')
+    result = {
+        'name'  : name,
+        'state' : state,
+        'value' : name,
+        'dest'  : dest,
+    }
+
+    rcValue = sysrc(module, name, value, dest)
+
+    if state == 'present':
+        not rcValue.exists() and rcValue.create()
+    elif state == 'absent':
+        rcValue.exists() and rcValue.destroy()
+
+    result['changed'] = rcValue.changed
+
+    module.exit_json(**result)
+
+main()

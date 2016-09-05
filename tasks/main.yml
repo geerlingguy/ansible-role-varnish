@@ -2,18 +2,14 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
-- include: setup-RedHat.yml
-  when: ansible_os_family == 'RedHat'
-
-- include: setup-Debian.yml
-  when: ansible_os_family == 'Debian'
+- include: setup-{{ ansible_os_family }}.yml
 
 - name: Copy Varnish configuration (sysvinit).
   template:
     src: varnish.j2
     dest: "{{ varnish_sysvinit_config_path }}/varnish"
     owner: root
-    group: root
+    group: "{{ varnish_root_group }}"
     mode: 0644
   when: >
     (ansible_os_family == 'RedHat' and ansible_distribution_major_version|int < 7) or
@@ -24,7 +20,7 @@
     src: varnish.service.j2
     dest: "{{ varnish_systemd_config_path }}/varnish.service"
     owner: root
-    group: root
+    group: "{{ varnish_root_group }}"
     mode: 0644
   when: >
     (ansible_os_family == 'Debian') and
@@ -38,11 +34,15 @@
     src: varnish.params.j2
     dest: /etc/varnish/varnish.params
     owner: root
-    group: root
+    group: "{{ varnish_root_group }}"
     mode: 0644
   when: >
     (ansible_os_family == 'RedHat' and ansible_distribution_major_version|int >= 7) or
     (ansible_os_family == 'Debian' and ansible_distribution_release == "xenial")
+
+- name: Configure Varnish (FreeBSD)
+  include: configure-FreeBSD.yml
+  when: ansible_os_family == 'FreeBSD'
 
 - name: Ensure Varnish config path exists.
   file:
@@ -54,19 +54,19 @@
     src: "{{ varnish_default_vcl_template_path }}"
     dest: "{{ varnish_config_path }}/default.vcl"
     owner: root
-    group: root
+    group: "{{ varnish_root_group }}"
     mode: 0644
   when: varnish_use_default_vcl
-  notify: restart varnish
+  notify: reload varnish
 
 - name: Copy varnish secret.
   template:
     src: secret.j2
     dest: "{{ varnish_config_path }}/secret"
     owner: root
-    group: root
+    group:  "{{ varnish_root_group }}"
     mode: 0644
   notify: restart varnish
 
 - name: Ensure Varnish is started and set to run on startup.
-  service: name=varnish state=started enabled=yes
+  service: name={{ varnish_service_name }} state=started enabled=yes
