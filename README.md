@@ -14,7 +14,7 @@ Available variables are listed below, along with default values (see `defaults/m
 
     varnish_version: "4.0"
 
-Varnish version that should be installed. See `https://repo.varnish-cache.org/redhat/` for a listing of available versions (e.g. `3.0`, `4.0`, `4.1`). _Note: Ubuntu 16.04 "Xenial"
+Varnish version that should be installed. See `https://repo.varnish-cache.org/redhat/` for a listing of available versions (e.g. `3.0`, `4.0`, `4.1`). _Note: Ubuntu 16.04 "Xenial" defaults to 4.1 from the universe repoistory_
 
     varnish_config_path: /etc/varnish
 
@@ -48,7 +48,7 @@ The host and port through which Varnish will accept admin requests (like purge a
 
     varnish_storage: "file,/var/lib/varnish/varnish_storage.bin,256M"
 
-How Varnish stores cache entries (this is passed in as the argument for `-s`). If you want to use in-memory storage, change to something like `malloc,256M`. Please read Varnish's [Getting Started guide](https://www.varnish-software.com/static/book/Getting_started.html) for more information.
+How Varnish stores cache entries (this is passed in as the argument for `-s`). If you want to use in-memory storage, change to something like `malloc,256M`. Please read Varnish's [Getting Started guide](http://book.varnish-software.com/4.0/chapters/Getting_Started.html) for more information.
 
 ## Dependencies
 
