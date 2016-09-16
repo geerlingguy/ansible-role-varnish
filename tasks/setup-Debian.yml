@@ -5,7 +5,7 @@
 
 - name: Add Varnish apt repository.
   apt_repository:
-    repo: "deb http://repo.varnish-cache.org/{{ ansible_distribution|lower }}  {{ ansible_distribution_release }} varnish-{{ varnish_version }}"
+    repo: "deb http://repo.varnish-cache.org/{{ ansible_distribution | lower }}  {{ ansible_distribution_release }} varnish-{{ varnish_version }}"
     state: present
   when: ansible_distribution_release != "xenial"
 
