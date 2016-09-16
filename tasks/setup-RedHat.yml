@@ -1,6 +1,9 @@
 ---
-- name: Ensure gcc is installed (Varnish dependency).
-  yum: name=gcc state=present
+- name: Ensure Varnish dependencies are installed.
+  yum: name={{ item }} state=present
+  with_items:
+    - gcc
+    - libedit-devel
 
 - name: Add Varnish repository.
   command: >
