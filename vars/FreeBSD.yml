@@ -1,0 +1,4 @@
+---
+varnish_service_name: varnishd
+varnish_config_path: /usr/local/etc/varnish
+varnish_root_group: wheel

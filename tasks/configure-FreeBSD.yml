@@ -1,0 +1,5 @@
+---
+- sysrc: name=varnishd_config value={{ varnish_config_path }}/default.vcl
+- sysrc: name=varnishd_listen value=:{{ varnish_listen_port }}
+- sysrc: name=varnishd_admin value={{ varnish_admin_listen_host }}:{{ varnish_admin_listen_port }}
+- sysrc: name=varnishd_storage value={{ varnish_storage }}
