@@ -10,4 +10,4 @@
   when: ansible_distribution_release != "xenial"
 
 - name: Install Varnish.
-  apt: name=varnish state=installed
+  apt: name="{{ varnish_package_name }}" state=installed

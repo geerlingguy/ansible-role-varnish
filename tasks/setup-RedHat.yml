@@ -18,7 +18,7 @@
 
 - name: Install Varnish.
   yum:
-    name: varnish
+    name: "{{ varnish_package_name }}"
     state: installed
     enablerepo: "{{ varnish_yum_enablerepo }}"
     disablerepo: "*"
