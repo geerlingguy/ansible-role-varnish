@@ -20,7 +20,7 @@
 - name: Install Varnish.
   apt:
     name: "{{ varnish_package_name }}"
-    state: installed
+    state: present
 
 - name: Ensure Varnish services start on boot.
   service:
