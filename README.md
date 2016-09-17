@@ -58,6 +58,10 @@ The host and port through which Varnish will accept admin requests (like purge a
 
 How Varnish stores cache entries (this is passed in as the argument for `-s`). If you want to use in-memory storage, change to something like `malloc,256M`. Please read Varnish's [Getting Started guide](http://book.varnish-software.com/4.0/chapters/Getting_Started.html) for more information.
 
+    varnish_pidfile: /run/varnishd.pid
+
+Varnish PID file path. Set to an empty string if you don't want to use a PID file.
+
 ## Dependencies
 
 None.
