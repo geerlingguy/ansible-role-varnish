@@ -41,7 +41,7 @@ The port on which Varnish will listen (typically port 80).
 
 Some settings for the default "default.vcl" template that will be copied to the `varnish_config_path` folder. The default backend host/port could be Apache or Nginx (or some other HTTP server) running on the same host or some other host (in which case, you might use port 80 instead).
 
-    varnish_limit_nofiles: 131072
+    varnish_limit_nofile: 131072
 
 The `nofiles` PAM limit Varnish will attempt to set for open files. The normal default is ~1024 which is much too low for Varnish usage.
 

@@ -11,7 +11,7 @@ varnish_default_backend_port: "8080"
 varnish_listen_port: "80"
 varnish_secret: "14bac2e6-1e34-4770-8078-974373b76c90"
 varnish_config_path: /etc/varnish
-varnish_limit_nofiles: 131072
+varnish_limit_nofile: 131072
 
 varnish_admin_listen_host: "127.0.0.1"
 varnish_admin_listen_port: "6082"
