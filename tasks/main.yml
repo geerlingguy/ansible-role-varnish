@@ -70,3 +70,9 @@
 
 - name: Ensure Varnish is started and set to run on startup.
   service: name=varnish state=started enabled=yes
+
+- name: Ensure the varnishlog service is in the correct state
+  service: name=varnishlog state={{ varnish_use_varnishlog | ternary('started', 'stopped') }} enabled={{ varnish_use_varnishlog | ternary(True, False) }}
+
+- name: Ensure the varnishcnsa service is in the correct state
+  service: name=varnishncsa state={{ varnish_use_varnishncsa | ternary('started', 'stopped') }} enabled={{ varnish_use_varnishncsa | ternary(True, False) }}
