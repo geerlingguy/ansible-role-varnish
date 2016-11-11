@@ -68,20 +68,10 @@
     mode: 0644
   notify: restart varnish
 
-- name: Ensure Varnish is started and set to run on startup.
+- name: Ensure Varnish services are started enabled on startup.
   service:
-    name: varnish
+    name: "{{ item }}"
     state: started
     enabled: yes
-
-- name: Ensure Varnishncsa is started and set to run on startup.
-  service:
-    name: varnishncsa
-    state: "{{ varnish_enable_varnishncsa | ternary('started', 'stopped') }}"
-    enabled: "{{ varnish_enable_varnishncsa | ternary(true, false) }}"
-
-- name: Ensure Varnishlog is started and set to run on startup.
-  service:
-    name: varnishlog
-    state: "{{ varnish_enable_varnishlog | ternary('started', 'stopped') }}"
-    enabled: "{{ varnish_enable_varnishlog | ternary(true, false) }}"
+  with_items: varnish_enabled_services | default([])
+  when: varnish_enabled_services
