@@ -73,3 +73,15 @@
     name: varnish
     state: started
     enabled: yes
+
+- name: Ensure Varnishncsa is started and set to run on startup.
+  service:
+    name: varnishncsa
+    state: "{{ varnish_enable_varnishncsa | ternary('started', 'stopped') }}"
+    enabled: "{{ varnish_enable_varnishncsa | ternary(true, false) }}"
+
+- name: Ensure Varnishlog is started and set to run on startup.
+  service:
+    name: varnishlog
+    state: "{{ varnish_enable_varnishlog | ternary('started', 'stopped') }}"
+    enabled: "{{ varnish_enable_varnishlog | ternary(true, false) }}"

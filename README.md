@@ -62,6 +62,14 @@ How Varnish stores cache entries (this is passed in as the argument for `-s`). I
 
 Varnish PID file path. Set to an empty string if you don't want to use a PID file.
 
+    varnish_enable_varnishncsa: false
+
+Enable varnishncsa service on start up.
+
+    varnish_enable_varnishlog: false
+
+Enable varnishlog service on start up.
+
 ## Dependencies
 
 None.
