@@ -21,12 +21,3 @@
   apt:
     name: "{{ varnish_package_name }}"
     state: present
-
-- name: Ensure Varnish services start on boot.
-  service:
-    name: "{{ item }}"
-    enabled: yes
-  with_items:
-    - varnish
-    - varnishncsa
-    - varnishlog

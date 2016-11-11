@@ -69,4 +69,7 @@
   notify: restart varnish
 
 - name: Ensure Varnish is started and set to run on startup.
-  service: name=varnish state=started enabled=yes
+  service:
+    name: varnish
+    state: started
+    enabled: yes
