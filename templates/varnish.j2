@@ -104,6 +104,7 @@ DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
              -p thread_pool_timeout=${VARNISH_THREAD_TIMEOUT} \
 {% if varnish_vcl_dir is defined %}
              -p vcl_dir={{ varnish_vcl_dir }}
+{% endif %}
 {% if varnish_version | version_compare('4.1', '<') %}
              -u varnish -g varnish \
 {% endif %}
