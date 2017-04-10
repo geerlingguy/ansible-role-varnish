@@ -9,3 +9,6 @@ backend default {
   .host = "{{ varnish_default_backend_host }}";
   .port = "{{ varnish_default_backend_port }}";
 }
+
+sub vcl_recv {
+}

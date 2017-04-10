@@ -59,6 +59,28 @@
   when: varnish_use_default_vcl
   notify: restart varnish
 
+- name: setup each backend
+  lineinfile:
+    dest: "{{ varnish_config_path }}/default.vcl"
+    insertbefore: "sub vcl_recv {"
+    line: "backend {{item.key}} {\n
+    .host = \"{{ item.value.host }}\";\n
+    .port = \"{{ item.value.port }}\";\n}"
+  when: ( varnish_backend is defined and varnish_backend )
+  notify: restart varnish
+  with_dict: "{{ varnish_backend }}"
+
+- name: setup each vhost
+  lineinfile:
+    dest: "{{ varnish_config_path }}/default.vcl"
+    insertafter: "sub vcl_recv {"
+    line: "  if (req.http.host == \"{{ item.key }}\" || req.http.host == \"www.{{ item.key}}\") {\n
+   set req.backend_hint = {{ item.value.backend }};\n
+    }"
+  with_dict: "{{ varnish_vhost }}"
+  when: ( varnish_vhost is defined and varnish_vhost )
+  notify: restart varnish
+
 - name: Copy varnish secret.
   template:
     src: secret.j2
