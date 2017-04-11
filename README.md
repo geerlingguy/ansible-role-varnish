@@ -77,11 +77,13 @@ We can setup vhost with different backend as following
         host: 10.0.2.3
         port: 80
     varnish_vhost:
-      mywebsite.fr:
+      example.com:
         backend: webhosting
-      supervision.mywebsite.fr:
+      supervisor.example.com:
         backend: zabbix
 
+`varnish_backend` is defining varnish backend in addition of default backend. We need to provide a name, a host value and a port value. We can define multiple backend but is not mandatory.
+`varnish_vhost` is getting a FQDN without www (it will be added automatically) and a backend value. We can use multiple times the same backend. If you want to use default backend, use backend `default`.
 
 ## Dependencies
 
