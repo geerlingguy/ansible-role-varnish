@@ -83,7 +83,6 @@ We can setup vhost with different backend as following
         backend: zabbix
 
 
-
 ## Dependencies
 
 None.
