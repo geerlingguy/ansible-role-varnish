@@ -67,6 +67,24 @@ Varnish PID file path. Set to an empty string if you don't want to use a PID fil
 
 Services that will be started at boot and should be running after this role is complete. You might need to add additional services if required, e.g. `varnishncsa` and `varnishlog`. If set to an empty array, no services will be enabled at startup.
 
+We can setup vhost with different backend as following
+
+    varnish_backend:
+      webhosting:
+        host: 10.0.2.1
+        port: 80
+      zabbix:
+        host: 10.0.2.3
+        port: 80
+    varnish_vhost:
+      example.com:
+        backend: webhosting
+      supervisor.example.com:
+        backend: zabbix
+
+`varnish_backend` is defining varnish backend in addition of default backend. We need to provide a name, a host value and a port value. We can define multiple backend but is not mandatory.
+`varnish_vhost` is getting a FQDN without www (it will be added automatically) and a backend value. We can use multiple times the same backend. If you want to use default backend, use backend `default`.
+
 ## Dependencies
 
 None.
