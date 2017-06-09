@@ -1,5 +1,8 @@
 - hosts: all
 
+  vars:
+    # varnish_version: 5.1
+
   pre_tasks:
     - name: Update apt cache.
       apt: update_cache=yes cache_valid_time=600
@@ -27,3 +30,14 @@
 
   roles:
     - role_under_test
+
+  post_tasks:
+    - name: Get Varnish version
+      command: varnishd -V
+      register: varnish_version
+      changed_when: no
+
+    - name: Show Varnish version
+      debug:
+        var: varnish_version
+      changed_when: no
