@@ -8,6 +8,11 @@
 - include: setup-Debian.yml
   when: ansible_os_family == 'Debian'
 
+- name: Ensure Varnish config path exists.
+  file:
+    path: "{{ varnish_config_path }}"
+    state: directory
+
 - name: Copy Varnish configuration (sysvinit).
   template:
     src: varnish.j2
@@ -43,11 +48,6 @@
   when: >
     (ansible_os_family == 'RedHat' and ansible_distribution_major_version|int >= 7) or
     (ansible_os_family == 'Debian' and ansible_distribution_release == "xenial")
-
-- name: Ensure Varnish config path exists.
-  file:
-    path: "{{ varnish_config_path }}"
-    state: directory
 
 - name: Copy Varnish default VCL.
   template:
