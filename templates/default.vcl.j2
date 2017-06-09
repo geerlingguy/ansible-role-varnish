@@ -8,7 +8,7 @@ vcl 4.0;
 backend default {
   .host = "{{ varnish_default_backend_host }}";
   .port = "{{ varnish_default_backend_port }}";
-{% if varnish_default_backend_proxy_proto is defined %}
+{% if varnish_default_backend_proxy_proto is defined and varnish_version|float >= 4.1 %}
   .proxy_header = {{ varnish_default_backend_proxy_proto }};
 {% endif %}
 }
@@ -19,7 +19,7 @@ backend default {
 backend {{ backend }} {
   .host = "{{ value.host }}";
   .port = "{{ value.port }}";
-{% if value.proxy_proto is defined %}
+{% if value.proxy_proto is defined and varnish_version|float >= 4.1 %}
   .proxy_header = {{ value.proxy_proto }};
 {% endif %}
 }

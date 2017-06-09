@@ -91,7 +91,7 @@ VARNISH_TTL=120
 #
 # # DAEMON_OPTS is used by the init script.  If you add or remove options, make
 # # sure you update this section, too.
-DAEMON_OPTS="{% for p in varnish_listen_ports %}-a :{{ p.port }}{% if p.proxy_proto is defined and p.proxy_proto %},PROXY{% endif %} \
+DAEMON_OPTS="{% for p in varnish_listen_ports %}-a :{{ p.port }}{% if p.proxy_proto is defined and p.proxy_proto and varnish_version|float >= 4.1 %},PROXY{% endif %} \
 {% endfor %}
              -f ${VARNISH_VCL_CONF} \
              -T ${VARNISH_ADMIN_LISTEN_ADDRESS}:${VARNISH_ADMIN_LISTEN_PORT} \
