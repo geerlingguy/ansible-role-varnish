@@ -1,14 +1,23 @@
 ---
 varnish_package_name: "varnish"
 varnish_version: "4.1"
+# Varnish 5+ is currently only supported on Debian and Ubuntu.
+# varnish_version: "5.1"
 
 varnish_use_default_vcl: true
 varnish_default_vcl_template_path: default.vcl.j2
 
 varnish_default_backend_host: "127.0.0.1"
 varnish_default_backend_port: "8080"
+# If backend server expect PROXY protocol connexion:
+# varnish_default_backend_proxy_proto: 1
 
-varnish_listen_port: "80"
+varnish_listen_ports:
+  - port: 80
+  - port: 6081
+    # If Varnish must expect a PROXY protocol connexion:
+    proxy_proto: yes
+
 varnish_secret: "14bac2e6-1e34-4770-8078-974373b76c90"
 varnish_config_path: /etc/varnish
 varnish_limit_nofile: 131072
@@ -27,6 +36,7 @@ varnish_enabled_services:
 #   apache:
 #     host: 10.0.2.2
 #     port: 80
+#     proxy_proto: 1
 #   nodejs:
 #     host: 10.0.2.3
 #     port: 80

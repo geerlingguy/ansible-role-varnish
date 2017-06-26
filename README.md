@@ -32,14 +32,17 @@ Whether to use the included (simplistic) default Varnish VCL, using the backend 
 
 The default VCL file to be copied (if `varnish_use_default_vcl` is `true`). Defaults the the simple template inside `templates/default.vcl.j2`. This path should be relative to the directory from which you run your playbook.
 
-    varnish_listen_port: "80"
+    varnish_listen_ports:
+        - port: 80
+          # proxy_proto: yes
 
-The port on which Varnish will listen (typically port 80).
+The ports on which Varnish will listen (typically port 80). If Varnish needs to expect a [PROXY protocol](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt) connection, then set `proxy_proto` to `yes`.
 
     varnish_default_backend_host: "127.0.0.1"
     varnish_default_backend_port: "8080"
+    # varnish_default_backend_proxy_proto: 1
 
-Some settings for the default "default.vcl" template that will be copied to the `varnish_config_path` folder. The default backend host/port could be Apache or Nginx (or some other HTTP server) running on the same host or some other host (in which case, you might use port 80 instead).
+Some settings for the default "default.vcl" template that will be copied to the `varnish_config_path` folder. The default backend host/port could be Apache or Nginx (or some other HTTP server) running on the same host or some other host (in which case, you might use port 80 instead). If the backend server is expecting a PROXY protocol connection, then set the variable to `1`.
 
     varnish_limit_nofile: 131072
 
@@ -71,6 +74,7 @@ Services that will be started at boot and should be running after this role is c
       apache:
         host: 10.0.2.2
         port: 80
+        # proxy_proto: 1
       nodejs:
         host: 10.0.2.3
         port: 80
