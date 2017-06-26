@@ -35,7 +35,7 @@ script:
   # Test the version of Varnish installed (default to the main.yml default).
   - |
     varnish_version="${varnish_version:-5.1}"
-    docker exec --tty ${container_id} env TERM=xterm varnishd -V | grep "${varnish_version}"'
+    docker exec --tty ${container_id} env TERM=xterm varnishd -V | grep "${varnish_version}"
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
