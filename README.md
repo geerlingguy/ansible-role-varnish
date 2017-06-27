@@ -32,9 +32,10 @@ Whether to use the included (simplistic) default Varnish VCL, using the backend 
 
 The default VCL file to be copied (if `varnish_use_default_vcl` is `true`). Defaults the the simple template inside `templates/default.vcl.j2`. This path should be relative to the directory from which you run your playbook.
 
+    varnish_listen_address: ""
     varnish_listen_port: "80"
 
-The port on which Varnish will listen (typically port 80).
+The address and port on which Varnish will listen. If you leave the address blank (`""`), Varnish will listen on all interfaces. Otherwise this can be a hostname or IPv4 or IPv6 address.
 
     varnish_default_backend_host: "127.0.0.1"
     varnish_default_backend_port: "8080"
