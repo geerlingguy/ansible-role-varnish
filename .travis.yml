@@ -6,8 +6,7 @@ env:
   - distro: centos6
   - distro: ubuntu1604
   - distro: ubuntu1404
-  # See: https://github.com/varnishcache/pkg-varnish-cache/issues/78
-  # - distro: debian9
+  - distro: debian9
   - distro: debian8
 
   # Also test installing older versions.
