@@ -71,7 +71,7 @@ VARNISH_VCL_CONF={{ varnish_config_path }}/default.vcl
 # # Blank address means all IPv4 and IPv6 interfaces, otherwise specify
 # # a host name, an IPv4 dotted quad, or an IPv6 address in brackets.
 # VARNISH_LISTEN_ADDRESS=
-VARNISH_LISTEN_PORT={{ varnish_listen_port }}
+# VARNISH_LISTEN_PORT=
 #
 # # Telnet admin interface listen address and port
 VARNISH_ADMIN_LISTEN_ADDRESS={{ varnish_admin_listen_host }}
@@ -97,7 +97,8 @@ VARNISH_TTL=120
 #
 # # DAEMON_OPTS is used by the init script.  If you add or remove options, make
 # # sure you update this section, too.
-DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
+DAEMON_OPTS="{% for l in varnish_listen %}-a {%if l.address is defined and l.address %}{{ l.address }}{% endif %}:{{ l.port }}{% if l.proxy_proto is defined and l.proxy_proto and varnish_version|float >= 4.1 %},PROXY{% endif %} \
+{% endfor %}
              -f ${VARNISH_VCL_CONF} \
              -T ${VARNISH_ADMIN_LISTEN_ADDRESS}:${VARNISH_ADMIN_LISTEN_PORT} \
              -t ${VARNISH_TTL} \

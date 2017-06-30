@@ -8,7 +8,7 @@ PIDFile={{ varnish_pidfile }}
 {% endif %}
 LimitNOFILE={{ varnish_limit_nofile }}
 LimitMEMLOCK=82000
-ExecStart=/usr/sbin/varnishd -a :{{ varnish_listen_port }} -T {{ varnish_admin_listen_host }}:{{ varnish_admin_listen_port }}{% if varnish_pidfile %} -P {{ varnish_pidfile }}{% endif %} -f {{ varnish_config_path }}/default.vcl -S {{ varnish_config_path }}/secret -s {{ varnish_storage }}
+ExecStart=/usr/sbin/varnishd {% for l in varnish_listen %}-a {%if l.address is defined and l.address %}{{ l.address }}{% endif %}:{{ l.port }}{% if l.proxy_proto is defined and l.proxy_proto and varnish_version|float >= 4.1 %},PROXY{% endif %} {% endfor %}-T {{ varnish_admin_listen_host }}:{{ varnish_admin_listen_port }}{% if varnish_pidfile %} -P {{ varnish_pidfile }}{% endif %} -f {{ varnish_config_path }}/default.vcl -S {{ varnish_config_path }}/secret -s {{ varnish_storage }}
 ExecReload=/usr/share/varnish/reload-vcl
 
 [Install]

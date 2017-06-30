@@ -11,7 +11,7 @@ VARNISH_VCL_CONF={{ varnish_config_path }}/default.vcl
 # and IPv6 interfaces, otherwise specify a host name, an IPv4 dotted
 # quad, or an IPv6 address in brackets.
 # VARNISH_LISTEN_ADDRESS=192.168.1.5
-VARNISH_LISTEN_PORT={{ varnish_listen_port }}
+VARNISH_LISTEN_PORT={{ varnish_listen[0].port }}
 
 # Admin interface listen address and port
 VARNISH_ADMIN_LISTEN_ADDRESS={{ varnish_admin_listen_host }}
