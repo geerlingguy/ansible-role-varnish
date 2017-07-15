@@ -72,7 +72,7 @@
     mode: 0644
   notify: restart varnish
 
-- name: Ensure Varnish services are started enabled on startup.
+- name: Ensure Varnish services are started and enabled on startup.
   service:
     name: "{{ item }}"
     state: started
