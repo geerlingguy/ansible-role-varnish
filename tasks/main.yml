@@ -91,6 +91,6 @@
     enabled: yes
     use: "service"
   with_items: "{{ varnish_enabled_services | default([]) }}"
-  when: >
-    varnish_enabled_services and
-    (ansible_os_family == 'Debian' and ansible_distribution_release == "xenial")
+  when:
+    - varnish_enabled_services
+    - (ansible_os_family == 'Debian' and ansible_distribution_release == "xenial")
