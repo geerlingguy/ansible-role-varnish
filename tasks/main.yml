@@ -77,7 +77,6 @@
     name: "{{ item }}"
     state: started
     enabled: yes
-    use: "service"
   with_items: "{{ varnish_enabled_services | default([]) }}"
   when: >
     varnish_enabled_services and
