@@ -38,8 +38,7 @@ script:
     docker exec --tty ${container_id} env TERM=xterm varnishd -V | grep "${varnish_version}"
 
   # Test port 80.
-  - |
-    docker exec --tty ${container_id} env TERM=xterm curl --head http://localhost:80/
+  - 'docker exec --tty ${container_id} env TERM=xterm curl -sI localhost:80 | grep -q "Via: .* varnish"'
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
