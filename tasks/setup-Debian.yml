@@ -16,8 +16,9 @@
 
 - name: Ensure Varnish is installed.
   apt:
-    name: "{{ varnish_package_name }}"
+    name: "{{ varnish_package_name ~ '=' ~ varnish_version ~ '*' }}"
     state: present
+    update_cache: yes
 
 - name: Ensure old role-managed Varnish systemd unit file is removed.
   file:
