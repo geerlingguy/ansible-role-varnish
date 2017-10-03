@@ -16,7 +16,7 @@
 
 - name: Ensure Varnish is installed.
   apt:
-    name: "{{ varnish_package_name ~ '=' ~ varnish_version ~ '*' }}"
+    name: "{{ varnish_package_name ~ '=' ~ varnish_version ~ '.*' }}"
     state: present
     update_cache: yes
 
