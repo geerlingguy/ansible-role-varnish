@@ -71,19 +71,18 @@ Extra options or flags to pass to the Varnish daemon when it starts (e.g. `-p ht
 
 Services that will be started at boot and should be running after this role is complete. You might need to add additional services if required, e.g. `varnishncsa` and `varnishlog`. If set to an empty array, no services will be enabled at startup.
 
-    varnish_backends:
-      apache:
-        host: 10.0.2.2
-        port: 80
-      nodejs:
-        host: 10.0.2.3
-        port: 80
-    
-    varnish_vhosts:
-      example.com:
-        backend: apache
-      nodejs.example.com:
-        backend: nodejs
+	varnish_backends:
+	  - backend: apache1
+		host: "10.0.2.2"
+		port: 80
+	  - backend: apache2
+		host: "10.0.2.3"
+		port: 80
+	varnish_vhosts:
+	  - servername: example1.com
+		backend: apache1
+	  - servername: example2.com
+		backend: apache2
 
 You can configure multiple backends (and direct traffic from multiple virtual hosts to different backends) using the `varnish_backends` and `varnish_vhosts` variables. If you only use one backend (defined via `varnish_default_backend_host` and `varnish_default_backend_port`), then you do not need to define these variables. Do not add a `www` to the `vhosts` keys; it is added automatically by the `default.vcl.j2` VCL template.
 
