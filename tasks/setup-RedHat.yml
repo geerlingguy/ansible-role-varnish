@@ -16,6 +16,7 @@
     gpgkey: https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/gpgkey
     sslverify: 1
     sslcacert: /etc/pki/tls/certs/ca-bundle.crt
+    priority: "{{ varnish_packagecloud_repo_yum_repository_priority }}"
   register: varnish_packagecloud_repo_addition
 
 - name: Refresh yum metadata cache if repo changed.
