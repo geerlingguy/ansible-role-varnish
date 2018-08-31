@@ -24,7 +24,7 @@ varnishd_extra_options: ""
 varnish_enabled_services:
   - varnish
 
-# make sure our repo gets used; set highest priority for yum_repository module:
+# Make sure Packagecloud repo is used on RHEL/CentOS.
 varnish_packagecloud_repo_yum_repository_priority: "1"
 
 # Optionally define additional backends.

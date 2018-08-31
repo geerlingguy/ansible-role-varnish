@@ -71,6 +71,10 @@ Extra options or flags to pass to the Varnish daemon when it starts (e.g. `-p ht
 
 Services that will be started at boot and should be running after this role is complete. You might need to add additional services if required, e.g. `varnishncsa` and `varnishlog`. If set to an empty array, no services will be enabled at startup.
 
+    varnish_packagecloud_repo_yum_repository_priority: "1"
+
+The `yum` priority for the Packagecloud repository used to install Varnish. Setting this explicitly forces yum to use the Packagecloud repositories to install Varnish even in environments (e.g. Amazon Linux) where other repositories may have higher priorities than the default.
+
     varnish_backends:
       apache:
         host: 10.0.2.2
