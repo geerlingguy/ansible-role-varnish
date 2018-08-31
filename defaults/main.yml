@@ -24,6 +24,9 @@ varnishd_extra_options: ""
 varnish_enabled_services:
   - varnish
 
+# make sure our repo gets used; set highest priority for yum_repository module:
+varnish_packagecloud_repo_yum_repository_priority: "1"
+
 # Optionally define additional backends.
 # varnish_backends:
 #   apache:
