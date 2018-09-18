@@ -18,6 +18,7 @@
     sslcacert: /etc/pki/tls/certs/ca-bundle.crt
     priority: "{{ varnish_packagecloud_repo_yum_repository_priority }}"
   register: varnish_packagecloud_repo_addition
+  when: varnish_use_packagecloud
 
 - name: Refresh yum metadata cache if repo changed.
   command: >

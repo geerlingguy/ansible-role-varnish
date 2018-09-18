@@ -8,11 +8,13 @@
   apt_key:
     url: https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/gpgkey
     state: present
+  when: varnish_use_packagecloud
 
 - name: Add packagecloud.io Varnish apt repository.
   apt_repository:
     repo: "deb https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} main"
     state: present
+  when: varnish_use_packagecloud
 
 - name: Ensure Varnish is installed.
   apt:

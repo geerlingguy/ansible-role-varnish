@@ -20,6 +20,10 @@ Varnish package name you want to install. See `apt-cache policy varnish` or `yum
 
 Varnish version that should be installed. See the [Varnish Cache packagecloud.io repositories](https://packagecloud.io/varnishcache) for a listing of available versions. Some examples include: `5.1`, `5.0`, `4.1`, `4.0`, `3.0`, and `2.1`.
 
+	 varnish_use_packagecloud: false
+	 
+If, for any reason, you don't want to use [packagecloud.io](https://packagecloud.io/varnishcache) as packages repository you can set `varnish_use_packagecloud ` to `false` (default value is `true`). This could be useful if the package for the version/distro you need isn't present on [packagecloud.io](https://packagecloud.io/varnishcache) but it is present on the default repositories.
+
     varnish_config_path: /etc/varnish
 
 The path in which Varnish configuration files will be stored.
