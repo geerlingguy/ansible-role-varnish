@@ -1,9 +1,10 @@
 ---
 - name: Ensure Varnish dependencies are installed.
-  yum: name={{ item }} state=present
-  with_items:
-    - yum-utils
-    - pygpgme
+  yum:
+    name:
+      - yum-utils
+      - pygpgme
+    state: present
 
 - name: Add Varnish packagecloud.io yum repo.
   yum_repository:

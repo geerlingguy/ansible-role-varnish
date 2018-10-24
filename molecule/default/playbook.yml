@@ -21,7 +21,7 @@
     - name: Check the installed Varnish version.
       command: varnishd -V
       register: varnish_version_output
-      failed_when: "{{ varnish_version }} not in varnish_version_output.stderr"
+      failed_when: "varnish_version not in varnish_version_output.stderr"
       changed_when: false
       tags: ['skip_ansible_lint']
 
