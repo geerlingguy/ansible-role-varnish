@@ -5,6 +5,7 @@
 - name: Set the packagecloud repository name based on the version.
   set_fact:
     varnish_packagecloud_repo: "varnish{{ varnish_version|replace('.', '') }}"
+  when: varnish_packagecloud_repo is not defined
 
 - include_tasks: setup-RedHat.yml
   when: ansible_os_family == 'RedHat'
