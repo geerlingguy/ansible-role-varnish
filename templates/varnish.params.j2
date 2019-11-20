@@ -25,7 +25,7 @@ VARNISH_SECRET_FILE={{ varnish_config_path }}/secret
 VARNISH_STORAGE="{{ varnish_storage }}"
 
 # Default TTL used when the backend does not specify one
-VARNISH_TTL=120
+VARNISH_TTL={{ varnish_ttl }}
 
 # User and group for the varnishd worker processes
 VARNISH_USER=varnish

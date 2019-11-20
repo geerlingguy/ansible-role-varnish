@@ -52,6 +52,10 @@ The secret/key to be used for connecting to Varnish's admin backend (for purge r
     varnish_admin_listen_host: "127.0.0.1"
     varnish_admin_listen_port: "6082"
 
+Default TTL used when the backend does not specify one.
+
+    varnish_ttl: 120
+
 The host and port through which Varnish will accept admin requests (like purge and status requests).
 
     varnish_storage: "file,/var/lib/varnish/varnish_storage.bin,256M"
