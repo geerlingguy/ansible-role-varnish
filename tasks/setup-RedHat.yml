@@ -10,6 +10,23 @@
   yum_repository:
     name: varnishcache_{{ varnish_packagecloud_repo }}
     description: Varnish Cache packagecloud.io repository.
+    baseurl: "{{ varnish_yum_repo_baseurl_amazon }}"
+    repo_gpgcheck: false
+    gpgcheck: false
+    enabled: true
+    gpgkey: https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/gpgkey
+    sslverify: 1
+    sslcacert: /etc/pki/tls/certs/ca-bundle.crt
+    priority: "{{ varnish_packagecloud_repo_yum_repository_priority }}"
+  register: varnish_packagecloud_repo_addition
+  when: >
+   ( ansible_distribution == 'Amazon' and ansible_distribution_major_version|int >= 2)
+
+
+- name: Add Varnish packagecloud.io yum repo.
+  yum_repository:
+    name: varnishcache_{{ varnish_packagecloud_repo }}
+    description: Varnish Cache packagecloud.io repository.
     baseurl: "{{ varnish_yum_repo_baseurl }}"
     repo_gpgcheck: false
     gpgcheck: false
@@ -19,6 +36,8 @@
     sslcacert: /etc/pki/tls/certs/ca-bundle.crt
     priority: "{{ varnish_packagecloud_repo_yum_repository_priority }}"
   register: varnish_packagecloud_repo_addition
+  when: >
+   ( ansible_distribution != 'Amazon' and ansible_distribution_major_version|int >= 2)
 
 - name: Refresh yum metadata cache if repo changed.
   command: yum clean metadata
