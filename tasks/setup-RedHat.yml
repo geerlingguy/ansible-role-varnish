@@ -7,7 +7,7 @@
     state: present
 
 - name: Amazon Linux Dependencies
-  shell: "amazon-linux-extras install epel -y"
+  command: "amazon-linux-extras install epel -y"
   when: >
    ( ansible_distribution == 'Amazon' and ansible_distribution_major_version|int >= 2)
 
