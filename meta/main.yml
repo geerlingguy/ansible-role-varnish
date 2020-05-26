@@ -2,6 +2,7 @@
 dependencies: []
 
 galaxy_info:
+  role_name: varnish
   author: geerlingguy
   description: Varnish for Linux.
   company: "Midwestern Mac, LLC"
