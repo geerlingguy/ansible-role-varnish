@@ -22,7 +22,8 @@
   register: varnish_packagecloud_repo_addition
 
 - name: Refresh yum metadata cache if repo changed.
-  command: yum clean metadata
+  command: >
+    yum -q makecache -y --disablerepo='*' --enablerepo='varnishcache_{{ varnish_packagecloud_repo }}'
   args:
     warn: false
   when: varnish_packagecloud_repo_addition.changed
@@ -31,4 +32,5 @@
 - name: Ensure Varnish is installed.
   yum:
     name: "{{ varnish_package_name }}"
+    disablerepo: "{{ 'AppStream' if (ansible_distribution_major_version | int == 8) | default(omit) }}"
     state: present
