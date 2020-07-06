@@ -3,7 +3,8 @@
   yum:
     name:
       - yum-utils
-      - pygpgme
+      # See: https://github.com/geerlingguy/ansible-role-varnish/issues/97
+      # - pygpgme
     state: present
 
 - name: Add Varnish packagecloud.io yum repo.
