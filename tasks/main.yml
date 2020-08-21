@@ -16,6 +16,7 @@
   file:
     path: "{{ varnish_config_path }}"
     state: directory
+    mode: 0755
 
 - name: Copy Varnish configuration (sysvinit).
   template:
