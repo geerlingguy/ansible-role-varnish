@@ -1,6 +1,6 @@
 # Ansible Role: Varnish
 
-[![Build Status](https://travis-ci.org/geerlingguy/ansible-role-varnish.svg?branch=master)](https://travis-ci.org/geerlingguy/ansible-role-varnish)
+[![Build Status](https://travis-ci.com/geerlingguy/ansible-role-varnish.svg?branch=master)](https://travis-ci.com/geerlingguy/ansible-role-varnish)
 
 Installs the [Varnish HTTP Cache](https://varnish-cache.org/) on RedHat/CentOS or Debian/Ubuntu Linux.
 
