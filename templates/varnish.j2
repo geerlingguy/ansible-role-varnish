@@ -12,7 +12,7 @@ NFILES={{ varnish_limit_nofile }}
 
 # Locked shared memory (for ulimit -l)
 # Default log size is 82MB + header
-MEMLOCK=82000
+MEMLOCK="{{ varnish_memlock }}"
 
 # Maximum number of threads (for ulimit -u)
 NPROCS="unlimited"

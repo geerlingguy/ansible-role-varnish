@@ -20,7 +20,7 @@
 
 - name: Copy Varnish configuration (sysvinit).
   template:
-    src: varnish.j2
+    src: "{{ varnish_sysvinit_config_file }}"
     dest: "{{ varnish_sysvinit_config_path }}/varnish"
     owner: root
     group: root
@@ -32,7 +32,7 @@
 
 - name: Copy Debian Jessie/Xenial specific Varnish configs (systemd).
   template:
-    src: varnish.service.j2
+    src: "{{ varnish_systemd_config_file }}"
     dest: "{{ varnish_systemd_config_path }}/varnish.service"
     owner: root
     group: root
@@ -47,7 +47,7 @@
 
 - name: Copy Varnish configuration (systemd).
   template:
-    src: varnish.params.j2
+    src:  "{{ varnish_params_file }}"
     dest: "{{ varnish_config_path }}/varnish.params"
     owner: root
     group: root
@@ -68,7 +68,7 @@
 
 - name: Copy varnish secret.
   template:
-    src: secret.j2
+    src: "{{ varnish_secret_file }}"
     dest: "{{ varnish_config_path }}/secret"
     owner: root
     group: root
