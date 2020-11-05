@@ -7,8 +7,8 @@ varnish_default_vcl_template_path: default.vcl.j2
 
 varnish_sysvinit_config_file: varnish.j2
 varnish_systemd_config_file: varnish.service.j2
-varnish_params_file:  varnish.params.j2
-varnish_secret_file:  secret.j2
+varnish_params_file: varnish.params.j2
+varnish_secret_file: secret.j2
 
 varnish_default_backend_host: "127.0.0.1"
 varnish_default_backend_port: "8080"

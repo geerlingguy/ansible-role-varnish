@@ -47,7 +47,7 @@
 
 - name: Copy Varnish configuration (systemd).
   template:
-    src:  "{{ varnish_params_file }}"
+    src: "{{ varnish_params_file }}"
     dest: "{{ varnish_config_path }}/varnish.params"
     owner: root
     group: root

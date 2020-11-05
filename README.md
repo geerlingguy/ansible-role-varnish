@@ -30,7 +30,7 @@ Whether to use the included (simplistic) default Varnish VCL, using the backend 
 
     varnish_default_vcl_template_path: default.vcl.j2
 
-The default VCL file to be copied (if `varnish_use_default_vcl` is `true`). Defaults the the simple template inside `templates/default.vcl.j2`. This path should be relative to the directory from which you run your playbook.
+The default VCL file to be copied (if `varnish_use_default_vcl` is `true`). Default is the simple template inside `templates/default.vcl.j2`. This path should be relative to the directory from which you run your playbook.
 
     varnish_listen_address: ""
     varnish_listen_port: "80"
@@ -99,6 +99,47 @@ Services that will be started at boot and should be running after this role is c
         backend: nodejs
 
 You can configure multiple backends (and direct traffic from multiple virtual hosts to different backends) using the `varnish_backends` and `varnish_vhosts` variables. If you only use one backend (defined via `varnish_default_backend_host` and `varnish_default_backend_port`), then you do not need to define these variables. Do not add a `www` to the `vhosts` keys; it is added automatically by the `default.vcl.j2` VCL template.
+
+varnish_sysvinit_config_file: varnish.j2
+
+The default service file to be copied when sysvinit is used. 
+Default is the simple template inside `templates/varnish.j2`. 
+This path should be relative to the directory from which you run your playbook.
+
+varnish_systemd_config_file: varnish.service.j2
+
+The default service file to be copied when systemd is used. 
+Default is the simple template inside `templates/varnish.service.j2`. 
+This path should be relative to the directory from which you run your playbook.
+
+varnish_params_file:  varnish.params.j2
+
+The default parameters file to be copied.
+Default is the simple template inside `templates/varnish.params.j2`. 
+This path should be relative to the directory from which you run your playbook.
+
+varnish_secret_file:  secret.j2
+
+Allows overriding the secret file to be copied. 
+Default is the simple template inside `templates/secret.j2`. 
+This path should be relative to the directory from which you run your playbook.
+
+varnish_memlock: 82000
+
+The varnish maximum memlock specified in `templates/varnish.j2` in kb
+when using sysvinit
+```
+Maximum locked memory size (for ulimit -l)
+Used for locking the shared memory log in memory.  If you increase log size,
+you need to increase this number as well
+```
+varnish_limit_memlock: 82000
+
+The same parameter as above but specified in the service file of varnish instead.
+
+varnish_exec_reload: /usr/sbin/varnishreload
+
+The exec_reload parameter of the service file for varnish; Commands to execute to trigger a configuration reload in the service in systemd.
 
 ## Dependencies
 
