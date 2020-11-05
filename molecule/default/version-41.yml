@@ -7,7 +7,7 @@
     varnish_version: "4.1"
 
   pre_tasks:
-    - import_tasks: playbook-setup.yml
+    - import_tasks: setup.yml
 
   roles:
     - role: geerlingguy.varnish
