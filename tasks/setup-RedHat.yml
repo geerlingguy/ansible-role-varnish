@@ -23,13 +23,17 @@
     sslcacert: /etc/pki/tls/certs/ca-bundle.crt
     priority: "{{ varnish_packagecloud_repo_yum_repository_priority }}"
   register: varnish_packagecloud_repo_addition
+  when:
+    - not varnish_packagecloud_bypass
 
 - name: Refresh yum metadata cache if repo changed.
   command: >
     yum -q makecache -y --disablerepo='*' --enablerepo='varnishcache_{{ varnish_packagecloud_repo }}'
   args:
     warn: false
-  when: varnish_packagecloud_repo_addition.changed
+    when:
+      - varnish_packagecloud_repo_addition.changed
+      - not varnish_packagecloud_bypass
   tags: ['skip_ansible_lint']
 
 - name: Disable varnish AppStream in RHEL 8.
@@ -39,6 +43,7 @@
   when:
     - varnish_packagecloud_repo_addition.changed
     - ansible_distribution_major_version | int == 8
+    - not varnish_packagecloud_bypass
   tags: ['skip_ansible_lint']
 
 - name: Ensure Varnish is installed.

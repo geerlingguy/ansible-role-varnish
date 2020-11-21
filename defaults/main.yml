@@ -34,6 +34,10 @@ varnish_yum_repo_baseurl: https://packagecloud.io/varnishcache/{{ varnish_packag
 # Only used on Debian / Ubuntu.
 varnish_apt_repo: deb https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} main
 
+# Completely bypass Packagecloud repo and use the varnish in the default repositories
+
+varnish_packagecloud_bypass: false
+
 # Optionally define additional backends.
 # varnish_backends:
 #   apache:
