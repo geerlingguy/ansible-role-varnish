@@ -15,6 +15,7 @@
   apt_repository:
     repo: "{{ varnish_apt_repo }}"
     state: present
+  when: not varnish_packagecloud_bypass
 
 - name: Ensure Varnish is installed.
   apt:

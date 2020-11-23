@@ -100,6 +100,11 @@ Services that will be started at boot and should be running after this role is c
 
 You can configure multiple backends (and direct traffic from multiple virtual hosts to different backends) using the `varnish_backends` and `varnish_vhosts` variables. If you only use one backend (defined via `varnish_default_backend_host` and `varnish_default_backend_port`), then you do not need to define these variables. Do not add a `www` to the `vhosts` keys; it is added automatically by the `default.vcl.j2` VCL template.
 
+    varnish_packagecloud_bypass: false
+
+To disable the inclusion of the Packagecloud repository beacause you want to use the internal repo installation file for some reason. A use case for this is when you have to use your own satellite servers or air gapped networks with local repositories.
+Default vaule is set to false.
+
 ## Dependencies
 
 None.
