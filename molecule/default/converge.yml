@@ -19,7 +19,5 @@
 
     - name: Verify Varnish is running on port 80.
       shell: 'curl -sI localhost:80 | grep -q "Via: .* varnish"'
-      args:
-        warn: false
       changed_when: false
       tags: ['skip_ansible_lint']

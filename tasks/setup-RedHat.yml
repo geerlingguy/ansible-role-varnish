@@ -27,15 +27,11 @@
 - name: Refresh yum metadata cache if repo changed.
   command: >
     yum -q makecache -y --disablerepo='*' --enablerepo='varnishcache_{{ varnish_packagecloud_repo }}'
-  args:
-    warn: false
   when: varnish_packagecloud_repo_addition.changed
   tags: ['skip_ansible_lint']
 
 - name: Disable varnish AppStream in RHEL 8.
   command: dnf module disable -y varnish
-  args:
-    warn: false
   when:
     - varnish_packagecloud_repo_addition.changed
     - ansible_distribution_major_version | int == 8
