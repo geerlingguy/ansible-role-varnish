@@ -1,5 +1,6 @@
 ---
 varnish_package_name: "varnish"
+varnish_modules_package_name: ""
 varnish_version: "6.4"
 
 varnish_use_default_vcl: true
@@ -24,6 +25,9 @@ varnishd_extra_options: ""
 
 varnish_enabled_services:
   - varnish
+
+# Use Packagecloud repo instead of distribution default
+varnish_apt_use_packagecloud: true
 
 # Make sure Packagecloud repo is used on RHEL/CentOS.
 varnish_packagecloud_repo_yum_repository_priority: "1"
