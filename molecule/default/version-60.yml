@@ -4,7 +4,7 @@
   become: true
 
   vars:
-    varnish_version: "4.1"
+    varnish_version: "6.0"
 
   pre_tasks:
     - import_tasks: setup.yml
@@ -16,7 +16,7 @@
     - name: Check the installed Ansible version.
       command: varnishd -V
       register: varnish_version
-      failed_when: "'4.1' not in varnish_version.stderr"
+      failed_when: "'6.0' not in varnish_version.stderr"
       changed_when: false
       tags: ['skip_ansible_lint']
 

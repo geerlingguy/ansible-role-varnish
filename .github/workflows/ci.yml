@@ -48,7 +48,7 @@ jobs:
           - distro: debian10
             playbook: converge.yml
           - distro: rockylinux8
-            playbook: version-41.yml
+            playbook: version-60.yml
 
     steps:
       - name: Check out the codebase.
