@@ -41,3 +41,9 @@
   yum:
     name: "{{ varnish_package_name }}"
     state: present
+
+- name: Ensure Varnish VMODs are installed.
+  yum:
+    name: "{{ varnish_modules_package_name }}"
+    state: present
+  when: varnish_modules_package_name

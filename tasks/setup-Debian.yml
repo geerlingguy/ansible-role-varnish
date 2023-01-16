@@ -1,28 +1,31 @@
 ---
-- name: Ensure dependencies are present.
-  apt:
-    name:
-      - apt-transport-https
-      - gnupg2
-    state: present
+- name: Configure packagecloud.io repository
+  block:
+    - name: Ensure dependencies are present.
+      apt:
+        name:
+          - apt-transport-https
+          - gnupg2
+        state: present
 
-- name: Add packagecloud.io Varnish apt key.
-  apt_key:
-    url: https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/gpgkey
-    state: present
+    - name: Add packagecloud.io Varnish apt key.
+      apt_key:
+        url: https://packagecloud.io/varnishcache/{{ varnish_packagecloud_repo }}/gpgkey
+        state: present
 
-- name: Add packagecloud.io Varnish apt repository.
-  apt_repository:
-    repo: "{{ varnish_apt_repo }}"
-    state: present
+    - name: Add packagecloud.io Varnish apt repository.
+      apt_repository:
+        repo: "{{ varnish_apt_repo }}"
+        state: present
+  when: varnish_apt_use_packagecloud
 
 - name: Ensure Varnish is installed.
   apt:
     name: "{{ varnish_package_name }}"
     state: present
 
-- name: Ensure old role-managed Varnish systemd unit file is removed.
-  file:
-    path: /etc/systemd/system/varnish.service
-    state: absent
-  when: varnish_systemd_config_path != '/etc/systemd/system'
+- name: Ensure Varnish VMODs are installed.
+  apt:
+    name: "{{ varnish_modules_package_name }}"
+    state: present
+  when: varnish_modules_package_name
