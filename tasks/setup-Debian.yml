@@ -28,4 +28,4 @@
   apt:
     name: "{{ varnish_modules_package_name }}"
     state: present
-  when: varnish_modules_package_name is defined and varnish_modules_package_name|length > 0
+  when: varnish_modules_package_name|length
