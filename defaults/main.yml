@@ -1,7 +1,7 @@
 ---
 varnish_package_name: "varnish"
 varnish_modules_package_name: ""
-varnish_version: "6.4"
+varnish_version: "6.6"
 
 varnish_use_default_vcl: true
 varnish_default_vcl_template_path: default.vcl.j2
