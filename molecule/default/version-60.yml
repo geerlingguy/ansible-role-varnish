@@ -7,7 +7,13 @@
     varnish_version: "6.0"
 
   pre_tasks:
-    - import_tasks: setup.yml
+    - name: Ensure build dependencies are installed.
+      yum:
+        name:
+          - logrotate
+          - systemd-sysv
+        state: present
+      when: ansible_os_family == 'RedHat'
 
   roles:
     - role: geerlingguy.varnish
