@@ -15,6 +15,7 @@
     name: varnishcache_{{ varnish_packagecloud_repo }}
     description: Varnish Cache packagecloud.io repository.
     baseurl: "{{ varnish_yum_repo_baseurl }}"
+    module_hotfixes: true
     repo_gpgcheck: false
     gpgcheck: false
     enabled: true
