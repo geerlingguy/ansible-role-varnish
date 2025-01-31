@@ -1,6 +1,6 @@
 # Ansible Role: Varnish
 
-[![CI](https://github.com/geerlingguy/ansible-role-varnish/workflows/CI/badge.svg?event=push)](https://github.com/geerlingguy/ansible-role-varnish/actions?query=workflow%3ACI)
+[![CI](https://github.com/geerlingguy/ansible-role-varnish/actions/workflows/ci.yml/badge.svg)](https://github.com/geerlingguy/ansible-role-varnish/actions/workflows/ci.yml)
 
 Installs the [Varnish HTTP Cache](https://varnish-cache.org/) on RedHat/CentOS or Debian/Ubuntu Linux.
 
